@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/game/Entity.h
+SFML/Graphics.hpp
+-
+
+../include/game/Event.h
+cstdint
+-
+functional
+-
+
+../include/game/World.h
+functional
+-
+map
+-
+type_traits
+-
+vector
+-
+SFML/Graphics.hpp
+-
+game/Entity.h
+-
+game/Event.h
+-
+
+/home/arthur/Dropbox/Fac/DPS/life-after-earth-3/games/main.cc
+game/World.h
+-
+config.h
+/home/arthur/Dropbox/Fac/DPS/life-after-earth-3/games/config.h
+
+games/config.h
+

@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/example_animation.dir/example_animation.cc.o  -o example_animation -rdynamic ../lib/libgame0.so.0.1.0 -lboost_filesystem -lboost_system -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system -Wl,-rpath,/home/arthur/Dropbox/Fac/DPS/life-after-earth-3/build/lib 

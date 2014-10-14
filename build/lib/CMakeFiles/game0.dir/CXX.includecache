@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/game/Resource.h
+string
+-
+map
+-
+memory
+-
+vector
+-
+SFML/Graphics/Texture.hpp
+-
+SFML/Graphics/Font.hpp
+-
+SFML/Audio/SoundBuffer.hpp
+-
+
+/home/arthur/Dropbox/Fac/DPS/life-after-earth-3/lib/Resource.cc
+game/Resource.h
+-
+iostream
+-
+boost/filesystem.hpp
+-
+

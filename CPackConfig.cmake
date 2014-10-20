@@ -1,5 +1,5 @@
 set(CPACK_GENERATOR "TGZ")
-set(CPACK_INSTALL_CMAKE_PROJECTS ".;game;ALL;/")
+set(CPACK_INSTALL_CMAKE_PROJECTS ".;life-after-earth-3;ALL;/")
 set(CPACK_PACKAGE_NAME "life-after-earth-3")
 
 set(CPACK_PACKAGE_VERSION_MAJOR "0")

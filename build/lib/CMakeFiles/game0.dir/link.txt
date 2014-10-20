@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC    -shared -Wl,-soname,libgame0.so.0 -o libgame0.so.0.1.0 CMakeFiles/game0.dir/Animation.cc.o CMakeFiles/game0.dir/Entity.cc.o CMakeFiles/game0.dir/Random.cc.o CMakeFiles/game0.dir/Resource.cc.o CMakeFiles/game0.dir/World.cc.o -lboost_filesystem -lboost_system -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system 

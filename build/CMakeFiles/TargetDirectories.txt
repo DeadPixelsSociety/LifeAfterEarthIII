@@ -1,3 +1,0 @@
-/home/arthur/Dropbox/Fac/DPS/life-after-earth-3/build/games/CMakeFiles/example_animation.dir
-/home/arthur/Dropbox/Fac/DPS/life-after-earth-3/build/games/CMakeFiles/foo.dir
-/home/arthur/Dropbox/Fac/DPS/life-after-earth-3/build/lib/CMakeFiles/game0.dir

@@ -3,10 +3,10 @@ LifeAfterEarthIII
 
 Description :
 -------------
-Après la destruction de la colonie Earth III, vous parcourez la galaxie à la recherche d'une nouvelle terre promise.
+After the destruction of the colony Earth III, you are travelling through the galaxy to find a new promised land.
 
-Vos recherches sont sur le point d'aboutir mais vous êtes en concurrence avec d'autres pour cette planète. À vous de faire triompher votre camp et d’annihiler les autres colons.
+You colonize the planet you landed on, there are others with the same goal. It's up to you to win your territory and destroy the other colonies.
 
-Pour vous aider à conquérir la planète, vous devrez exploiter les richesses de celle-ci avant que d'autres ne s'en emparent. Les ennemis n'auront de cesse que de détruire la nouvelle frêle colonie. À vous de lever une armée et de mettre en place une stratégie pour vous défendre et contre-attaquer.
+To help you conquer the planet, you have to explore its richness before the others, but the enemies will try to destroy you and your colony. So, you have to create an army and a strategy to defend yourself and counter-attack them.
 
-Life After Earth III est un jeu de stratégie multijoueur en temps réel où vous combattez les autres joueurs pour les chasser de la planète. Vous construirez une véritable ville fortifiée pour survivre et écraser les autres joueurs.
+Life After Earth III is real-time multiplayer strategy game where you compete with the other players to conquer the planet, plan and construct a fortified city to survive and defeat the other player.

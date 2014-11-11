@@ -6,6 +6,10 @@ add_library(lae3common SHARED
   ${LIBCOMMON_SOURCES}
 )
 
+target_link_libraries(lae3common
+  sfml-network
+)
+
 set_target_properties(lae3common
   PROPERTIES
   VERSION ${CPACK_PACKAGE_VERSION}
@@ -26,6 +30,10 @@ add_library(lae3client SHARED
   ${LIBCLIENT_SOURCES}
 )
 
+target_link_libraries(lae3client
+  sfml-network
+)
+
 set_target_properties(lae3client
   PROPERTIES
   VERSION ${CPACK_PACKAGE_VERSION}
@@ -44,6 +52,10 @@ file(GLOB LIBCLIENT_SOURCES "server/*.cc")
 
 add_library(lae3server SHARED
   ${LIBCLIENT_SOURCES}
+)
+
+target_link_libraries(lae3server
+  sfml-network
 )
 
 set_target_properties(lae3server

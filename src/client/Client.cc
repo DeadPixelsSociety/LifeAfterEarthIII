@@ -9,10 +9,5 @@ int main(int argc, char *argv[])
 
 	socket.connect(sf::IpAddress::LocalHost);
 
-	for(;;)
-    {
-
-    }
-
 	return EXIT_SUCCESS;
 }

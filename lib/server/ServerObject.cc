@@ -9,3 +9,8 @@
 {
     //dtor
 }
+
+/* virtual */ void lae3::server::ServerObject::update(const float dt)
+{
+    // Update method
+}

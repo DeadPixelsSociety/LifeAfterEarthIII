@@ -1,14 +1,15 @@
 #ifndef LISTENER_H
 #define LISTENER_H
 
-#include <netdb.h>
-#include <sys/socket.h>
+#include <list>
 
 #include <server/ServerObject.h>
 
 namespace sf
 {
     class TcpListener;
+    class TcpSocket;
+    class SocketSelector;
 }
 
 namespace lae3
@@ -21,12 +22,16 @@ namespace lae3
                 explicit Listener();
                 virtual ~Listener();
 
-                void start();
+                virtual void start();
 
             protected:
 
             private:
+                const unsigned int m_MAX_CLIENTS;
+                std::list<sf::TcpSocket*> m_clients;
+
                 sf::TcpListener *m_pListener;
+                sf::SocketSelector *m_pSocketSelector;
         };
     }
 }

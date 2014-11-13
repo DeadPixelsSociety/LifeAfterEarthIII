@@ -7,6 +7,7 @@ add_library(lae3common SHARED
 )
 
 target_link_libraries(lae3common
+  ${SFML2_LIBRARIES}
   sfml-network
 )
 
@@ -31,6 +32,7 @@ add_library(lae3client SHARED
 )
 
 target_link_libraries(lae3client
+  ${SFML2_LIBRARIES}
   sfml-network
 )
 
@@ -55,6 +57,7 @@ add_library(lae3server SHARED
 )
 
 target_link_libraries(lae3server
+  ${SFML2_LIBRARIES}
   sfml-network
 )
 

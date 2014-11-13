@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include <server/Listener.h>
-#include <server/CommunicationThread.h>
+#include <common/CommunicationThread.h>
 
 int main(int argc, char *argv[])
 {
@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 	listener.start();
 
     // Start the communication with UdpSocket
-    lae3::server::CommunicationThread comThread;
+    lae3::common::CommunicationThread comThread;
     comThread.start();
 
     sf::Clock clock;

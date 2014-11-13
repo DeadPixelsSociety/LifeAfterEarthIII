@@ -2,13 +2,12 @@
 #define COMMUNICATIONTHREAD_H
 
 #include <SFML/System.hpp>
-#include <server/ServerObject.h>
 
 namespace lae3
 {
-    namespace server
+    namespace common
     {
-        class CommunicationThread : public ServerObject
+        class CommunicationThread
         {
             public:
                 explicit CommunicationThread();

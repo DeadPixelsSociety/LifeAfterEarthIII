@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 
-#include <client/CommunicationThread.h>
+#include <common/CommunicationThread.h>
 
 void help();
 
@@ -30,8 +30,8 @@ int main(int argc, char *argv[])
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Life After Earth III");
 
 	// Create the communication thread
-    lae3::client::CommunicationThread thread;
-    thread.start();
+    lae3::common::CommunicationThread comThread;
+    comThread.start();
 
 	// Main loop
 	while (window.isOpen())

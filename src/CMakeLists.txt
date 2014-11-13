@@ -29,6 +29,7 @@ add_executable(lae3-server
 target_link_libraries(lae3-server
 	lae3common
 	lae3server
+	sfml-system
     sfml-network
 )
 

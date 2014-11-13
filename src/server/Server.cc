@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 
     // Start the communication with UdpSocket
     lae3::server::CommunicationThread comThread;
-    //comThread.start();
+    comThread.start();
 
     sf::Clock clock;
     clock.restart();

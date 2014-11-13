@@ -8,5 +8,10 @@ int main(int argc, char *argv[])
 
 	listener.start();
 
+	for (;;)
+    {
+        //
+    }
+
 	return EXIT_SUCCESS;
 }

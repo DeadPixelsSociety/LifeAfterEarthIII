@@ -1,13 +1,20 @@
 #include <cstdlib>
 #include <SFML/Network.hpp>
 
-#include <client/Socket.h>
-
 int main(int argc, char *argv[])
 {
-	lae3::client::Socket socket;
+	sf::TcpSocket socket;
+	sf::Packet packet;
+	std::string message = "The cake is a lie!";
 
-	socket.connect(sf::IpAddress::LocalHost);
+	socket.connect(sf::IpAddress::LocalHost, 4242);
+	packet << message;
+	socket.send(packet);
+
+	for (;;)
+    {
+        //
+    }
 
 	return EXIT_SUCCESS;
 }

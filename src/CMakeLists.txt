@@ -9,6 +9,8 @@ add_executable(lae3-client
 target_link_libraries(lae3-client
 	lae3common
 	lae3client
+    sfml-network
+    sfml-system
 )
 
 install(
@@ -27,6 +29,7 @@ add_executable(lae3-server
 target_link_libraries(lae3-server
 	lae3common
 	lae3server
+    sfml-network
 )
 
 install(

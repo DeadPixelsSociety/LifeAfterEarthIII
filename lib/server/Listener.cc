@@ -32,7 +32,7 @@
 
 void lae3::server::Listener::start()
 {
-    while(m_clients.size() < m_MAX_CLIENTS)
+    while(m_clients.size() < m_MAX_CLIENTS+1)
     {
         // Waiting new data form socket
         if (m_pSocketSelector->wait())
@@ -57,6 +57,36 @@ void lae3::server::Listener::start()
                     // Error, we won't get a new connection, delete the socket
                     delete client;
                     client = nullptr;
+                }
+            }
+            else
+            {
+                // The listener socket is not ready, test all other sockets (the clients)
+                for (std::list<sf::TcpSocket*>::iterator it = m_clients.begin(); it != m_clients.end(); ++it)
+                {
+                    sf::TcpSocket& client = **it;
+                    if (m_pSocketSelector->isReady(client))
+                    {
+                        // The client has sent some data, we can receive it
+                        sf::Packet packet;
+                        sf::Socket::Status status= client.receive(packet);
+                        if (status == sf::Socket::Done)
+                        {
+                            std::string message;
+                            packet >> message;
+
+                            std::cout << message << std::endl;
+                        }
+                        else if (status == sf::Socket::Disconnected)
+                        {
+                            std::cout << "Client disconnected" << std::endl;
+                            m_pSocketSelector->remove(client);
+                        }
+                        else
+                        {
+                            std::cerr << "Error during receive packet." << std::endl;
+                        }
+                    }
                 }
             }
         }

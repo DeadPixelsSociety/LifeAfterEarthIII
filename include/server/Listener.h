@@ -28,6 +28,7 @@ namespace lae3
 
             private:
                 const unsigned int m_MAX_CLIENTS;
+                bool m_continue;
                 std::list<sf::TcpSocket*> m_clients;
 
                 sf::TcpListener *m_pListener;

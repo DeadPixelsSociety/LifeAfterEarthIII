@@ -5,6 +5,7 @@
 
 /* explicit */ lae3::server::Listener::Listener() :
     m_MAX_CLIENTS(2)
+    , m_continue(true)
     , m_pListener(new sf::TcpListener())
     , m_pSocketSelector(new sf::SocketSelector())
 {
@@ -32,7 +33,7 @@
 
 void lae3::server::Listener::start()
 {
-    while(m_clients.size() < m_MAX_CLIENTS+1)
+    while(m_continue)
     {
         // Waiting new data form socket
         if (m_pSocketSelector->wait())
@@ -43,9 +44,6 @@ void lae3::server::Listener::start()
                 sf::TcpSocket *client = new sf::TcpSocket();
                 if (m_pListener->accept(*client) == sf::Socket::Done)
                 {
-                    // A new client just connected!
-                    std::cout << "Socket #" << m_clients.size()+1 << " was created" << std::endl;
-
                     // Add to list of client the new client
                     m_clients.push_back(client);
 
@@ -72,10 +70,16 @@ void lae3::server::Listener::start()
                         sf::Socket::Status status= client.receive(packet);
                         if (status == sf::Socket::Done)
                         {
-                            std::string message;
-                            packet >> message;
+                            std::string name;
+                            packet >> name;
 
-                            std::cout << message << std::endl;
+                            std::cout << "Player #" << m_clients.size() << ": " << name << std::endl;
+
+                            // Check if it's the last player
+                            if (m_MAX_CLIENTS == m_clients.size())
+                            {
+                                m_continue = false;
+                            }
                         }
                         else if (status == sf::Socket::Disconnected)
                         {

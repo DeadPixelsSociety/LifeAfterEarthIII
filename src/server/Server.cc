@@ -18,10 +18,10 @@ int main(int argc, char *argv[])
 
 	for (;;)
     {
-        if (clock.getElapsedTime().asSeconds() >= 0.01667)
+        if (clock.getElapsedTime().asMilliseconds() >= 16.67)
         {
             clock.restart();
-            std::cout << "The main thread updating the game" << std::endl;
+            //std::cout << "The main thread updating the game" << std::endl;
         }
         else
         {

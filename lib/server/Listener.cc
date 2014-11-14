@@ -75,6 +75,15 @@ void lae3::server::Listener::start()
 
                             std::cout << "Player #" << m_clients.size() << ": " << name << std::endl;
 
+                            // Send the port fort listen
+                            packet.clear();
+                            sf::Uint16 port = 4242 + m_clients.size();
+                            packet << port;
+                            if (client.send(packet) != sf::Socket::Done)
+                            {
+                                std::cerr << "Error during send packet" << std::endl;
+                            }
+
                             // Check if it's the last player
                             if (m_MAX_CLIENTS == m_clients.size())
                             {
@@ -83,8 +92,12 @@ void lae3::server::Listener::start()
                         }
                         else if (status == sf::Socket::Disconnected)
                         {
+                            // Remove client of differents lists
                             std::cout << "Client disconnected" << std::endl;
                             m_pSocketSelector->remove(client);
+                            m_clients.remove(&client);
+                            std::cout << "number of clients : " << m_clients.size() << std::endl;
+                            break;
                         }
                         else
                         {
@@ -94,5 +107,13 @@ void lae3::server::Listener::start()
                 }
             }
         }
+    }
+
+    // Disconnect all socket to continue with udp
+    for (std::list<sf::TcpSocket*>::iterator it = m_clients.begin(); it != m_clients.end(); ++it)
+    {
+        sf::TcpSocket& client = **it;
+
+        client.disconnect();
     }
 }

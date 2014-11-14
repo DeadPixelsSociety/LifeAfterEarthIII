@@ -4,6 +4,7 @@
 #include <list>
 
 #include <server/ServerObject.h>
+#include <server/Player.h>
 
 namespace sf
 {

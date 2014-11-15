@@ -16,21 +16,25 @@ int main(int argc, char *argv[])
     sf::Clock clock;
     clock.restart();
 
+    // For test only
+    sf::Vector2f position(0, 0);
+
 	for (;;)
     {
         if (clock.getElapsedTime().asMilliseconds() >= 16.67)
         {
             clock.restart();
-            std::string message = "The main thread updating the game";
             sf::Packet packet;
-            packet << message;
+            packet << position.x << position.y;
 
             for (unsigned int i = 0; i < listener.getPlayers().size(); ++i)
             {
                 lae3::server::Player &player = listener.getPlayers()[i];
                 comThread.sendPacket(packet, player.getIP(), player.getPort());
             }
-            //std::cout << "The main thread updating the game" << std::endl;
+
+            position.x++;
+            position.y++;
         }
         else
         {

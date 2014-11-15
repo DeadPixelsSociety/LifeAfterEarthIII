@@ -33,6 +33,9 @@ int main(int argc, char *argv[])
     comThread.setPort(port);
     comThread.start();
 
+    // For test only
+    sf::Vector2f position(0,0);
+
 	// Main loop
 	while (window.isOpen())
     {
@@ -45,12 +48,19 @@ int main(int argc, char *argv[])
                 window.close();
         }
 
+        // Update info with the server
+        sf::Packet packet;
+        while (comThread.receivePacket(packet))
+        {
+            packet >> position.x >> position.y;
+        }
+
         window.clear(sf::Color::Black);
 
         // Drawn a circle
         sf::CircleShape circle(10);
         circle.setFillColor(sf::Color::White);
-        circle.setPosition(5, 5);
+        circle.setPosition(position);
         window.draw(circle);
 
         window.display();

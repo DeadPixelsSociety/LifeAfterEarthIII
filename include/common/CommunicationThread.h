@@ -34,7 +34,7 @@ namespace lae3
                 bool m_continue;
                 sf::Mutex m_mutex;
 
-                std::list<UdpPacket> m_inPackets;
+                std::list<sf::Packet> m_inPackets;
                 std::list<UdpPacket> m_outPackets;
 
                 void run();

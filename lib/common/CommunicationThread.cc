@@ -58,7 +58,17 @@ bool lae3::common::CommunicationThread::receivePacket(sf::Packet &packet)
 
 bool lae3::common::CommunicationThread::receivePacket(sf::Packet &packet, const unsigned short port)
 {
-    return false;
+    // If there is no packet
+    if (m_inPackets.size() == 0)
+    {
+        return false;
+    }
+
+    // Stock the first packet
+    packet = m_inPackets.front();
+    m_inPackets.pop_front();
+
+    return true;
 }
 
 void lae3::common::CommunicationThread::run()
@@ -90,8 +100,9 @@ void lae3::common::CommunicationThread::run()
         // If it's a new packet
         if (socket.receive(packet, remoteAddress, remotePort) == sf::Socket::Done)
         {
-            ///TODO Add packet to inPackets
-            std::cout << "Packet Receiv" << std::endl;
+            m_mutex.lock();
+            m_inPackets.push_back(packet);
+            m_mutex.unlock();
         }
 
         // Send packet if it's needed

@@ -21,6 +21,15 @@ int main(int argc, char *argv[])
         if (clock.getElapsedTime().asMilliseconds() >= 16.67)
         {
             clock.restart();
+            std::string message = "The main thread updating the game";
+            sf::Packet packet;
+            packet << message;
+
+            for (unsigned int i = 0; i < listener.getPlayers().size(); ++i)
+            {
+                lae3::server::Player &player = listener.getPlayers()[i];
+                comThread.sendPacket(packet, player.getIP(), player.getPort());
+            }
             //std::cout << "The main thread updating the game" << std::endl;
         }
         else

@@ -38,12 +38,25 @@ void lae3::common::CommunicationThread::stop()
     m_thread.wait();
 }
 
-void lae3::common::CommunicationThread::sendPacket(const sf::Packet &packet)
+void lae3::common::CommunicationThread::sendPacket(const sf::Packet &packet, const sf::IpAddress &ip)
 {
-    //
+    sendPacket(packet, ip, m_port);
+}
+
+void lae3::common::CommunicationThread::sendPacket(const sf::Packet &packet, const sf::IpAddress &ip, const unsigned short port)
+{
+    // Add the packet to out list
+    m_mutex.lock();
+    m_outPackets.push_back(UdpPacket(packet, ip, port));
+    m_mutex.unlock();
 }
 
 bool lae3::common::CommunicationThread::receivePacket(sf::Packet &packet)
+{
+    return receivePacket(packet, m_port);
+}
+
+bool lae3::common::CommunicationThread::receivePacket(sf::Packet &packet, const unsigned short port)
 {
     return false;
 }
@@ -52,6 +65,7 @@ void lae3::common::CommunicationThread::run()
 {
     // Create the UDP socket
     sf::UdpSocket socket;
+    socket.setBlocking(false);
 
     // Try to bind the port
     if (socket.bind(m_port) != sf::Socket::Done)
@@ -84,7 +98,13 @@ void lae3::common::CommunicationThread::run()
         m_mutex.lock();
         if (m_outPackets.size() != 0)
         {
-            socket.send(m_outPackets.front(), sf::IpAddress::LocalHost, socket.getLocalPort());
+            UdpPacket &udpPacket = m_outPackets.front();
+            sf::Packet outPacket = udpPacket.getPacket();
+            if (socket.send(outPacket, udpPacket.getIPDestination(), udpPacket.getPortDestination()) != sf::Socket::Done)
+            {
+                std::cerr << "Error during send packet" << std::endl;
+            }
+            m_outPackets.pop_front();
         }
         m_mutex.unlock();
 

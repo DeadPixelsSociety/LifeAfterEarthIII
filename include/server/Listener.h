@@ -23,6 +23,8 @@ namespace lae3
                 explicit Listener();
                 virtual ~Listener();
 
+                std::vector<Player> getPlayers() const;
+
                 virtual void start();
 
             protected:

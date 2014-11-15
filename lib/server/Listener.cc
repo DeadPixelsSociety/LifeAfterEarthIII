@@ -29,6 +29,13 @@
 
     delete m_pSocketSelector;
     m_pSocketSelector = nullptr;
+
+    m_players.clear();
+}
+
+std::vector<lae3::server::Player> lae3::server::Listener::getPlayers() const
+{
+    return m_players;
 }
 
 void lae3::server::Listener::start()
@@ -85,7 +92,9 @@ void lae3::server::Listener::start()
                             }
 
                             // Register the new players
-                            m_players.push_back(Player(name, port));
+                            m_players.push_back(Player(name, client.getRemoteAddress(), port));
+
+                            std::cout << "IP : " << client.getRemoteAddress().toString() << std::endl;
 
                             // Check if it's the last player
                             if (m_MAX_CLIENTS == m_players.size())

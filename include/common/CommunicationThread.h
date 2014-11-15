@@ -5,6 +5,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Network.hpp>
 
+#include <common/UdpPacket.h>
+
 namespace lae3
 {
     namespace common
@@ -19,8 +21,10 @@ namespace lae3
 
                 void start();
                 void stop();
-                void sendPacket(const sf::Packet &packet);
+                void sendPacket(const sf::Packet &packet, const sf::IpAddress &ip);
+                void sendPacket(const sf::Packet &packet, const sf::IpAddress &ip, const unsigned short port);
                 bool receivePacket(sf::Packet &packet);
+                bool receivePacket(sf::Packet &packet, const unsigned short port);
 
             protected:
 
@@ -30,8 +34,8 @@ namespace lae3
                 bool m_continue;
                 sf::Mutex m_mutex;
 
-                std::list<sf::Packet> m_inPackets;
-                std::list<sf::Packet> m_outPackets;
+                std::list<UdpPacket> m_inPackets;
+                std::list<UdpPacket> m_outPackets;
 
                 void run();
         };

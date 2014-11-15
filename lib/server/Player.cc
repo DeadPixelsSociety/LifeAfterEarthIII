@@ -1,7 +1,8 @@
 #include <server/Player.h>
 
-/* explicit */ lae3::server::Player::Player(std::string name, unsigned short port) :
+/* explicit */ lae3::server::Player::Player(std::string name, sf::IpAddress ip, unsigned short port) :
     m_name(name)
+    , m_ip(ip)
     , m_port(port)
 {
     //ctor
@@ -12,19 +13,14 @@
     //dtor
 }
 
-void lae3::server::Player::setName(const std::string &name)
-{
-    m_name = name;
-}
-
-void lae3::server::Player::setPort(const unsigned short port)
-{
-    m_port = port;
-}
-
 std::string lae3::server::Player::getName() const
 {
     return m_name;
+}
+
+sf::IpAddress lae3::server::Player::getIP() const
+{
+    return m_ip;
 }
 
 unsigned short lae3::server::Player::getPort() const

@@ -11,7 +11,7 @@ namespace lae3
                 explicit ServerObject();
                 virtual ~ServerObject();
 
-                virtual void update(const float dt);
+                virtual void update();
 
             protected:
 

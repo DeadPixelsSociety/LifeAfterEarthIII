@@ -10,7 +10,7 @@
     //dtor
 }
 
-/* virtual */ void lae3::server::ServerObject::update(const float dt)
+/* virtual */ void lae3::server::ServerObject::update()
 {
     // Update method
 }

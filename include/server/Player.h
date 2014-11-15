@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <string>
+#include <SFML/Network.hpp>
 
 #include <server/ServerObject.h>
 
@@ -12,19 +13,18 @@ namespace lae3
         class Player : public ServerObject
         {
             public:
-                explicit Player(std::string name, unsigned short port = 0);
+                explicit Player(std::string name, sf::IpAddress ip, unsigned short port);
                 virtual ~Player();
 
-                void setName(const std::string &name);
-                void setPort(const unsigned short port);
-
                 std::string getName() const;
+                sf::IpAddress getIP() const;
                 unsigned short getPort() const;
 
             protected:
 
             private:
                 std::string m_name;
+                sf::IpAddress m_ip;
                 unsigned short m_port;
         };
     }

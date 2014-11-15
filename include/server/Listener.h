@@ -1,7 +1,7 @@
 #ifndef LISTENER_H
 #define LISTENER_H
 
-#include <list>
+#include <vector>
 
 #include <server/ServerObject.h>
 #include <server/Player.h>
@@ -30,7 +30,7 @@ namespace lae3
             private:
                 const unsigned int m_MAX_CLIENTS;
                 bool m_continue;
-                std::list<sf::TcpSocket*> m_clients;
+                std::vector<sf::TcpSocket*> m_clients;
 
                 sf::TcpListener *m_pListener;
                 sf::SocketSelector *m_pSocketSelector;

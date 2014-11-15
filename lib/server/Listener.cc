@@ -17,7 +17,7 @@
 /* virtual */ lae3::server::Listener::~Listener()
 {
     // Free all sockets
-    for (std::list<sf::TcpSocket*>::iterator it = m_clients.begin(); it != m_clients.end(); ++it)
+    for (std::vector<sf::TcpSocket*>::iterator it = m_clients.begin(); it != m_clients.end(); ++it)
     {
         sf::TcpSocket *client = *it;
         delete client;
@@ -60,9 +60,9 @@ void lae3::server::Listener::start()
             else
             {
                 // The listener socket is not ready, test all other sockets (the clients)
-                for (std::list<sf::TcpSocket*>::iterator it = m_clients.begin(); it != m_clients.end(); ++it)
+                for (unsigned int i = 0; i < m_clients.size(); ++i)
                 {
-                    sf::TcpSocket& client = **it;
+                    sf::TcpSocket& client = *(m_clients[i]);
                     if (m_pSocketSelector->isReady(client))
                     {
                         // The client has sent some data, we can receive it
@@ -95,7 +95,7 @@ void lae3::server::Listener::start()
                             // Remove client of differents lists
                             std::cout << "Client disconnected" << std::endl;
                             m_pSocketSelector->remove(client);
-                            m_clients.remove(&client);
+                            m_clients.erase(m_clients.begin()+i);
                             std::cout << "number of clients : " << m_clients.size() << std::endl;
                             break;
                         }
@@ -110,7 +110,7 @@ void lae3::server::Listener::start()
     }
 
     // Disconnect all socket to continue with udp
-    for (std::list<sf::TcpSocket*>::iterator it = m_clients.begin(); it != m_clients.end(); ++it)
+    for (std::vector<sf::TcpSocket*>::iterator it = m_clients.begin(); it != m_clients.end(); ++it)
     {
         sf::TcpSocket& client = **it;
 

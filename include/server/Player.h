@@ -12,8 +12,14 @@ namespace lae3
         class Player : public ServerObject
         {
             public:
-                explicit Player(std::string name, unsigned short port);
+                explicit Player(std::string name, unsigned short port = 0);
                 virtual ~Player();
+
+                void setName(const std::string &name);
+                void setPort(const unsigned short port);
+
+                std::string getName() const;
+                unsigned short getPort() const;
 
             protected:
 

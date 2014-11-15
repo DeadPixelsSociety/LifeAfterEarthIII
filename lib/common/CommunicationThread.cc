@@ -24,7 +24,6 @@ void lae3::common::CommunicationThread::setPort(const unsigned short port)
 
 void lae3::common::CommunicationThread::start()
 {
-    std::cout << "port: " << m_port << std::endl;
     m_thread.launch();
 }
 
@@ -53,15 +52,15 @@ void lae3::common::CommunicationThread::run()
 {
     // Create the UDP socket
     sf::UdpSocket socket;
-    socket.setBlocking(false);
-    sf::Socket::Status status;
 
     // Try to bind the port
-    do
+    if (socket.bind(m_port) != sf::Socket::Done)
     {
-        status = socket.bind(m_port++);
+        std::cerr << "Failed to connect with the server" << std::endl;
+        return;
     }
-    while (status != sf::Socket::Done);
+
+    std::cout << "port = " << m_port << std::endl;
 
     m_mutex.lock();
     bool continueSafe = m_continue;
@@ -93,6 +92,4 @@ void lae3::common::CommunicationThread::run()
         continueSafe = m_continue;
         m_mutex.unlock();
     }
-
-    std::cout << socket.getLocalPort() << std::endl;
 }

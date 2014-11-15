@@ -31,6 +31,7 @@ namespace lae3
                 const unsigned int m_MAX_CLIENTS;
                 bool m_continue;
                 std::vector<sf::TcpSocket*> m_clients;
+                std::vector<Player> m_players;
 
                 sf::TcpListener *m_pListener;
                 sf::SocketSelector *m_pSocketSelector;

@@ -73,19 +73,22 @@ void lae3::server::Listener::start()
                             std::string name;
                             packet >> name;
 
-                            std::cout << "Player #" << m_clients.size() << ": " << name << std::endl;
+                            std::cout << "Player #" << m_players.size() << ": " << name << std::endl;
 
                             // Send the port fort listen
                             packet.clear();
-                            sf::Uint16 port = 4242 + m_clients.size();
+                            sf::Uint16 port = 4242 + m_players.size()+1;
                             packet << port;
                             if (client.send(packet) != sf::Socket::Done)
                             {
                                 std::cerr << "Error during send packet" << std::endl;
                             }
 
+                            // Register the new players
+                            m_players.push_back(Player(name, port));
+
                             // Check if it's the last player
-                            if (m_MAX_CLIENTS == m_clients.size())
+                            if (m_MAX_CLIENTS == m_players.size())
                             {
                                 m_continue = false;
                             }
@@ -96,6 +99,7 @@ void lae3::server::Listener::start()
                             std::cout << "Client disconnected" << std::endl;
                             m_pSocketSelector->remove(client);
                             m_clients.erase(m_clients.begin()+i);
+                            m_players.erase(m_players.begin()+i);
                             std::cout << "number of clients : " << m_clients.size() << std::endl;
                             break;
                         }

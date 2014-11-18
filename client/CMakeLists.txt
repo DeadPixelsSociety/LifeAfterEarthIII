@@ -5,8 +5,13 @@ add_executable(client
   ${CLIENT_SOURCES}
 )
 
-target_link_libraries(client 
+target_link_libraries(client
 	lae3common
+	sfml-audio
+	sfml-network
+	sfml-graphics
+	sfml-window
+	sfml-system
 )
 
 install(

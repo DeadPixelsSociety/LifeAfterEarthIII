@@ -1,7 +1,15 @@
-#include <common/common.h>
+#include <iostream>
+#include "Map.h"
+using namespace std;
 
 int main(int argc, char *argv[])
 {
-	lifeAfterEarth3::common::Common::printMessage("Client started.");
-	return EXIT_SUCCESS;
+  
+  client::Map m;
+  m.generateWall(0.3);
+  m.display();
+
+  
+  
+  
 }

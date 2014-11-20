@@ -1,10 +1,10 @@
 #ifndef MAP_H
 #define MAP_H
-#define WIDTH 10
-#define HEIGHT 10
 #include <iostream>
-
-
+#include <SFML/Graphics.hpp>
+#include "Tile.h"
+#define MAP_WIDTH 10
+#define MAP_HEIGHT 10
 namespace client
 {
   enum
@@ -12,24 +12,33 @@ namespace client
     GROUND,
     WALL
   };
-  
+
+
+  class Tile;
   class Map
   {
-
+    
   public:
-    Map();
+    Map(sf::Texture &t);
     ~Map();
     
     void init();
-    int getTab(int i ,int j){return m_tab[i][j];}
-    int setTab(int n,int i,int j){m_tab[i][j] = n;}
-    void generateWall(float p);
+    int getTab(int i ,int j){return m_tab[i][j]->getID();}
+    int setTab(int n,int i,int j){m_tab[i][j]->setID(n);}
+
+    void update();
     void display();
-
-
+    void display(sf::RenderWindow *w);
+    
+    void generateWall(float p);
+    void generateWall();
+    
+        
   private:
     
-  int m_tab[HEIGHT][WIDTH];
+    Tile* m_tab[MAP_HEIGHT][MAP_WIDTH];
+    sf::Texture m_texture;
+    
   protected:
   };
   

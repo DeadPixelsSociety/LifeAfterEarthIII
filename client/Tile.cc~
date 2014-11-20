@@ -1,0 +1,9 @@
+#include "Tile.h"
+
+core::Tile::Tile()
+{
+}
+
+core::Tile::~Tile()
+{
+}

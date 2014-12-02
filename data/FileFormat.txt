@@ -1,0 +1,30 @@
+Format de fichier :
+-------------------
+.tlf : Textures Loading File
+	Fichier contenant les instructions de chargement des textures dans le jeu.
+	Format : NE PAS OUBLIER LE RETOUR A LA LIGNE EN FIN DE FICHIER
+
+Nom de la texture:chemin/relatif/vers/le/fichier/de.texture
+Nom d'un autre texture:chemin/relatif/vers/l/autre.texture
+...
+...
+
+-------------------
+.slf : Sounds Loading File
+	Fichier contenant les instructions de chargement des sons dans le jeu.
+	Format : NE PAS OUBLIER LE RETOUR A LA LIGNE EN FIN DE FICHIER
+
+Nom du son:chemin/relatif/vers/le/fichier.son
+...
+...
+
+-------------------
+.mlf : Musics Loading File
+	Fichier contenant les instructions de chargement des musiques dans le jeu.
+	Format : NE PAS OUBLIER LE RETOUR A LA LIGNE EN FIN DE FICHIER
+
+Nom de la musique:chemin/relatif/vers/le/fichier/de/la.musique
+...
+...
+
+-------------------

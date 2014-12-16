@@ -7,6 +7,12 @@ add_executable(client
 
 target_link_libraries(client 
 	lae3common
+
+	sfml-graphics
+
+	sfml-window
+	
+	sfml-system
 )
 
 install(

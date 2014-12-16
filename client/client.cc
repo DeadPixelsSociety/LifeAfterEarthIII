@@ -1,6 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Map.h"
+#include <Map.h>
 using namespace std;
 using namespace sf;
 

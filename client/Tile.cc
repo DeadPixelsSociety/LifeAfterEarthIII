@@ -1,9 +1,15 @@
 #include <Tile.h>
 
-namespace client
-{
-  client::Tile::Tile(int id,sf::Texture &t): m_ID(id),m_width(TILE_WIDTH),m_height(TILE_HEIGHT)
+
+
+  client::Tile::Tile(int id,sf::Texture &t)
   {
+    m_width = TILE_HEIGHT;
+    m_height= TILE_HEIGHT;
+    m_ID = id;
+
+
+
     m_sprite = new sf::Sprite();
     m_sprite->setTexture(t);
     
@@ -38,4 +44,4 @@ namespace client
   {
     delete m_sprite;
   }
-}
+

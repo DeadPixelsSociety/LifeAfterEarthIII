@@ -1,19 +1,19 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <Map.h>
+#include <Tile.h>
 using namespace std;
 using namespace sf;
 
 int main(int argc, char *argv[])
 {
   sf::Texture t;
-  t.loadFromFile("tileset.png");
+  t.loadFromFile("../client/tileset.png");
   client::Map m(t);;
   
   RenderWindow window(VideoMode(MAP_WIDTH * TILE_WIDTH,MAP_HEIGHT * TILE_HEIGHT,32),"TEST");
   Event event;
   
-  m.generateWall(0.1);
 
 
   while(window.isOpen())

@@ -5,31 +5,27 @@ project(Life-After-Earth-III CXX)
 include(CPackConfig.cmake)
 include(GNUInstallDirs)
 
-#find_package(Boost REQUIRED COMPONENTS filesystem system)
-
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(SFML2 REQUIRED sfml-graphics>=2.1 sfml-audio>=2.1)
 
-add_definitions(-Wall -g -O2)
-add_definitions(-std=c++11)
+add_definitions(-Wall -g -O2 -std=c++11)
 
 include_directories("${CMAKE_SOURCE_DIR}/include")
 
-add_subdirectory(client)
-add_subdirectory(server)
-add_subdirectory(common)
+add_subdirectory(src)
+add_subdirectory(lib)
 
-#install(
-#  DIRECTORY "${CMAKE_SOURCE_DIR}/include/client"
-#  DESTINATION "${CMAKE_INCLUDE_CURRENT_DIR}/client"
-#)
-#
-#install(
-#  DIRECTORY "${CMAKE_SOURCE_DIR}/include/server"
-#  DESTINATION "${CMAKE_INCLUDE_CURRENT_DIR}/server"
-#)
-#
-#install(
-#  DIRECTORY "${CMAKE_SOURCE_DIR}/include/comon"
-#  DESTINATION "${CMAKE_INCLUDE_CURRENT_DIR}/comon"
-#)
+install(
+  DIRECTORY "${CMAKE_SOURCE_DIR}/include/client"
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/lae3/client"
+)
+
+install(
+  DIRECTORY "${CMAKE_SOURCE_DIR}/include/server"
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/lae3/server"
+)
+
+install(
+  DIRECTORY "${CMAKE_SOURCE_DIR}/include/common"
+  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/lae3/common"
+)

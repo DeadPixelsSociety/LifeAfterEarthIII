@@ -1,3 +1,5 @@
+include_directories("${SFML2_INCLUDE_DIRS}")
+
 # List of sources
 file(GLOB CLIENT_SOURCES "*.cc")
 
@@ -7,11 +9,7 @@ add_executable(client
 
 target_link_libraries(client
 	lae3common
-	sfml-audio
-	sfml-network
-	sfml-graphics
-	sfml-window
-	sfml-system
+	${SFML2_LIBRARIES}
 )
 
 install(

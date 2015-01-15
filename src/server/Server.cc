@@ -21,24 +21,30 @@ int main(int argc, char *argv[])
 
 	for (;;)
     {
-        if (clock.getElapsedTime().asMilliseconds() >= 16.67)
+        sf::Packet packet;
+
+        // Check if players send data
+        if (comThread.receivePacket(packet))
+        {
+            std::cout << "New data from player#" << std::endl;
+        }
+
+        // Check if it's needed to send data
+        if (clock.getElapsedTime().asMilliseconds() >= 8.33)
         {
             clock.restart();
-            sf::Packet packet;
-            packet << position.x << position.y;
 
+            // Send the new data
             for (unsigned int i = 0; i < listener.getPlayers().size(); ++i)
             {
                 lae3::server::Player &player = listener.getPlayers()[i];
                 comThread.sendPacket(packet, player.getIP(), player.getPort());
             }
-
-            position.x++;
-            position.y++;
         }
         else
         {
-            sf::sleep(sf::milliseconds(16.67));
+            // Wait timer
+            sf::sleep(sf::milliseconds(8.33));
         }
     }
 

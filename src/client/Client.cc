@@ -48,9 +48,28 @@ int main(int argc, char *argv[])
         sf::Event event;
         while (window.pollEvent(event))
         {
-            // Close window
-            if (event.type == sf::Event::Closed)
-                window.close();
+            switch (event.type)
+            {
+                // Close window
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+
+                // Key release
+                case sf::Event::KeyReleased:
+                    if (event.key.code == sf::Keyboard::Space)
+                    {
+                        sf::Packet packet;
+
+                        packet << "test";
+
+                        comThread.sendPacket(packet, sf::IpAddress("127.0.0.1"), 4242);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         // Update info with the server

@@ -8,7 +8,8 @@
     , m_port(0)
     , m_continue(true)
 {
-    //ctor
+    // Set socket unblocking
+    m_socket.setBlocking(false);
 }
 
 /* explicit */ lae3::common::CommunicationThread::CommunicationThread(const unsigned short port) :
@@ -16,12 +17,14 @@
     , m_port(port)
     , m_continue(true)
 {
-    //ctor
+    // Set socket unblocking
+    m_socket.setBlocking(false);
 }
 
 /* virtual */ lae3::common::CommunicationThread::~CommunicationThread()
 {
     m_thread.terminate();
+    m_socket.unbind();
 }
 
 unsigned short lae3::common::CommunicationThread::getPort()
@@ -49,16 +52,19 @@ void lae3::common::CommunicationThread::stop()
     m_thread.wait();
 }
 
-void lae3::common::CommunicationThread::sendPacket(const sf::Packet &packet, const sf::IpAddress &ip)
+void lae3::common::CommunicationThread::sendPacket(sf::Packet &packet, const sf::IpAddress &ip)
 {
     sendPacket(packet, ip, m_port);
 }
 
-void lae3::common::CommunicationThread::sendPacket(const sf::Packet &packet, const sf::IpAddress &ip, const unsigned short port)
+void lae3::common::CommunicationThread::sendPacket(sf::Packet &packet, const sf::IpAddress &ip, const unsigned short &port)
 {
-    // Add the packet to out list
+    // Send packet
     m_mutex.lock();
-    m_outPackets.push_back(UdpPacket(packet, ip, port));
+    if (m_socket.send(packet, ip, port) != sf::Socket::Done)
+    {
+        std::cerr << "Error during send packet" << std::endl;
+    }
     m_mutex.unlock();
 }
 
@@ -84,18 +90,14 @@ bool lae3::common::CommunicationThread::receivePacket(sf::Packet &packet, const 
 
 void lae3::common::CommunicationThread::run()
 {
-    // Create the UDP socket
-    sf::UdpSocket socket;
-    socket.setBlocking(false);
-
     // Try to bind the port to the server
-    if (m_port != 0 && socket.bind(m_port) != sf::Socket::Done)
+    if (m_port != 0 && m_socket.bind(m_port) != sf::Socket::Done)
     {
         std::cerr << "Failed to bind port" << std::endl;
         return;
     }
     // Try to bind the port to the client
-    else if (m_port == 0 && socket.bind(sf::Socket::AnyPort) != sf::Socket::Done)
+    else if (m_port == 0 && m_socket.bind(sf::Socket::AnyPort) != sf::Socket::Done)
     {
         std::cerr << "Failed to bind port" << std::endl;
         return;
@@ -103,9 +105,8 @@ void lae3::common::CommunicationThread::run()
 
     // Update the port
     m_mutex.lock();
-    m_port = socket.getLocalPort();
+    m_port = m_socket.getLocalPort();
     m_mutex.unlock();
-    //std::cout << "port = " << m_port << std::endl;
 
     m_mutex.lock();
     bool continueSafe = m_continue;
@@ -119,24 +120,10 @@ void lae3::common::CommunicationThread::run()
         unsigned short remotePort;
 
         // If it's a new packet
-        if (socket.receive(packet, remoteAddress, remotePort) == sf::Socket::Done)
-        {
-            m_mutex.lock();
-            m_inPackets.push_back(packet);
-            m_mutex.unlock();
-        }
-
-        // Send packet if it's needed
         m_mutex.lock();
-        if (m_outPackets.size() != 0)
+        if (m_socket.receive(packet, remoteAddress, remotePort) == sf::Socket::Done)
         {
-            UdpPacket &udpPacket = m_outPackets.front();
-            sf::Packet outPacket = udpPacket.getPacket();
-            if (socket.send(outPacket, udpPacket.getIPDestination(), udpPacket.getPortDestination()) != sf::Socket::Done)
-            {
-                std::cerr << "Error during send packet" << std::endl;
-            }
-            m_outPackets.pop_front();
+            m_inPackets.push_back(packet);
         }
         m_mutex.unlock();
 

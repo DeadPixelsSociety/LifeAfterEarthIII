@@ -78,23 +78,24 @@ void lae3::server::Listener::start()
                         if (status == sf::Socket::Done)
                         {
                             std::string name;
+                            sf::Uint16 port;
                             packet >> name;
+                            packet >> port;
 
                             std::cout << "Player #" << m_players.size() << ": " << name << std::endl;
-
-                            // Send the port fort listen
-                            packet.clear();
-                            sf::Uint16 port = 4242 + m_players.size()+1;
-                            packet << port;
-                            if (client.send(packet) != sf::Socket::Done)
-                            {
-                                std::cerr << "Error during send packet" << std::endl;
-                            }
+                            std::cout << "ip = " << client.getRemoteAddress().toString() << std::endl;
+                            std::cout << "port = " << port << std::endl;
 
                             // Register the new players
                             m_players.push_back(Player(name, client.getRemoteAddress(), port));
 
-                            std::cout << "IP : " << client.getRemoteAddress().toString() << std::endl;
+                            // Send acquitement
+                            packet.clear();
+                            packet << true;
+                            if (client.send(packet) != sf::Socket::Done)
+                            {
+                                std::cerr << "Error during send packet" << std::endl;
+                            }
 
                             // Check if it's the last player
                             if (m_MAX_CLIENTS == m_players.size())

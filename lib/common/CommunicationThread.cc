@@ -5,7 +5,15 @@
 
 /* explicit */ lae3::common::CommunicationThread::CommunicationThread() :
     m_thread(&lae3::common::CommunicationThread::run, this)
-    , m_port(4242)
+    , m_port(0)
+    , m_continue(true)
+{
+    //ctor
+}
+
+/* explicit */ lae3::common::CommunicationThread::CommunicationThread(const unsigned short port) :
+    m_thread(&lae3::common::CommunicationThread::run, this)
+    , m_port(port)
     , m_continue(true)
 {
     //ctor
@@ -16,11 +24,14 @@
     m_thread.terminate();
 }
 
-void lae3::common::CommunicationThread::setPort(const unsigned short port)
+unsigned short lae3::common::CommunicationThread::getPort()
 {
-    m_port = port;
+    unsigned short output;
+    m_mutex.lock();
+    output = m_port;
+    m_mutex.unlock();
+    return output;
 }
-
 
 void lae3::common::CommunicationThread::start()
 {
@@ -77,14 +88,24 @@ void lae3::common::CommunicationThread::run()
     sf::UdpSocket socket;
     socket.setBlocking(false);
 
-    // Try to bind the port
-    if (socket.bind(m_port) != sf::Socket::Done)
+    // Try to bind the port to the server
+    if (m_port != 0 && socket.bind(m_port) != sf::Socket::Done)
     {
-        std::cerr << "Failed to connect with the server" << std::endl;
+        std::cerr << "Failed to bind port" << std::endl;
+        return;
+    }
+    // Try to bind the port to the client
+    else if (m_port == 0 && socket.bind(sf::Socket::AnyPort) != sf::Socket::Done)
+    {
+        std::cerr << "Failed to bind port" << std::endl;
         return;
     }
 
-    std::cout << "port = " << m_port << std::endl;
+    // Update the port
+    m_mutex.lock();
+    m_port = socket.getLocalPort();
+    m_mutex.unlock();
+    //std::cout << "port = " << m_port << std::endl;
 
     m_mutex.lock();
     bool continueSafe = m_continue;

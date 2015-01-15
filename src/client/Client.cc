@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
@@ -17,21 +18,25 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
+    // Create the communication thread
+    lae3::common::CommunicationThread comThread;
+    comThread.start();
+
+    // Wait to get the port of UDP
+    while (comThread.getPort() == 0)
+    {
+        sleep(1);
+    }
+
     // Register the player
     std::string name(argv[1]);
-    unsigned short port = 0;
-    if (!lae3::common::Protocol::registerPlayer(name, port))
+    if (!lae3::common::Protocol::registerPlayer(name, "127.0.0.1", 4242, comThread.getPort()))
     {
         return EXIT_FAILURE;
     }
 
 	// Create window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Life After Earth III");
-
-	// Create the communication thread
-    lae3::common::CommunicationThread comThread;
-    comThread.setPort(port);
-    comThread.start();
 
     // For test only
     sf::Vector2f position(0,0);

@@ -15,9 +15,10 @@ namespace lae3
         {
             public:
                 explicit CommunicationThread();
+                explicit CommunicationThread(const unsigned short port);
                 virtual ~CommunicationThread();
 
-                void setPort(const unsigned short port);
+                unsigned short getPort();
 
                 void start();
                 void stop();
@@ -30,7 +31,7 @@ namespace lae3
 
             private:
                 sf::Thread m_thread;
-                unsigned int m_port;
+                unsigned short m_port;
                 bool m_continue;
                 sf::Mutex m_mutex;
 

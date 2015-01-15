@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 	listener.start();
 
     // Start the communication with UdpSocket
-    lae3::common::CommunicationThread comThread;
+    lae3::common::CommunicationThread comThread(4242);
     comThread.start();
 
     sf::Clock clock;

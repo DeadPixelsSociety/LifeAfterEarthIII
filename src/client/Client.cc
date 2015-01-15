@@ -61,7 +61,9 @@ int main(int argc, char *argv[])
                     {
                         sf::Packet packet;
 
-                        packet << "test";
+                        std::cout << sf::Keyboard::Space << std::endl;
+
+                        packet << sf::Keyboard::Space;
 
                         comThread.sendPacket(packet, sf::IpAddress("127.0.0.1"), 4242);
                     }

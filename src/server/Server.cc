@@ -1,4 +1,5 @@
 #include <iostream>
+#include <SFML/Window/Keyboard.hpp>
 
 #include <server/Listener.h>
 #include <common/CommunicationThread.h>
@@ -26,7 +27,10 @@ int main(int argc, char *argv[])
         // Check if players send data
         if (comThread.receivePacket(packet))
         {
-            std::cout << "New data from player#" << std::endl;
+            unsigned int keyInt;
+            packet >> keyInt;
+            sf::Keyboard::Key key = (sf::Keyboard::Key) keyInt;
+            std::cout << key << std::endl;
         }
 
         // Check if it's needed to send data

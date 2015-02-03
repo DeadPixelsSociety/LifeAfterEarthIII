@@ -2,6 +2,7 @@
 #include <SFML/Window/Keyboard.hpp>
 
 #include <server/Listener.h>
+#include <server/World.h>
 #include <common/CommunicationThread.h>
 
 int main(int argc, char *argv[])
@@ -13,6 +14,9 @@ int main(int argc, char *argv[])
     // Start the communication with UdpSocket
     lae3::common::CommunicationThread comThread(4242);
     comThread.start();
+
+    // Create the world
+    lae3::server::World world;
 
     sf::Clock clock;
     clock.restart();
@@ -27,10 +31,9 @@ int main(int argc, char *argv[])
         // Check if players send data
         if (comThread.receivePacket(packet))
         {
-            unsigned int keyInt;
-            packet >> keyInt;
-            sf::Keyboard::Key key = (sf::Keyboard::Key) keyInt;
-            std::cout << key << std::endl;
+            lae3::common::CodeCommande codeCommande;
+            packet >> codeCommande;
+            world.update(codeCommande);
         }
 
         // Check if it's needed to send data
@@ -41,6 +44,8 @@ int main(int argc, char *argv[])
             // Send the new data
             for (unsigned int i = 0; i < listener.getPlayers().size(); ++i)
             {
+                packet.clear();
+                packet << world.getUpdateData();
                 lae3::server::Player &player = listener.getPlayers()[i];
                 comThread.sendPacket(packet, player.getIP(), player.getPort());
             }

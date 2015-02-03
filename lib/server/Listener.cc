@@ -82,10 +82,6 @@ void lae3::server::Listener::start()
                             packet >> name;
                             packet >> port;
 
-                            std::cout << "Player #" << m_players.size() << ": " << name << std::endl;
-                            std::cout << "ip = " << client.getRemoteAddress().toString() << std::endl;
-                            std::cout << "port = " << port << std::endl;
-
                             // Register the new players
                             m_players.push_back(Player(name, client.getRemoteAddress(), port));
 

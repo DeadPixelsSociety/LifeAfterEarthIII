@@ -6,6 +6,7 @@
 
 #include <common/CommunicationThread.h>
 #include <common/Protocol.h>
+#include <client/World.h>
 
 void help();
 
@@ -41,6 +42,9 @@ int main(int argc, char *argv[])
     // For test only
     sf::Vector2f position(0,0);
 
+    // Create the World
+    lae3::client::World world;
+
 	// Main loop
 	while (window.isOpen())
     {
@@ -57,13 +61,39 @@ int main(int argc, char *argv[])
 
                 // Key release
                 case sf::Event::KeyReleased:
-                    if (event.key.code == sf::Keyboard::Space)
+                    // If UP
+                    if (event.key.code == sf::Keyboard::Up)
                     {
                         sf::Packet packet;
 
-                        std::cout << sf::Keyboard::Space << std::endl;
+                        packet << lae3::common::CodeCommande::MOVE_UP;
 
-                        packet << sf::Keyboard::Space;
+                        comThread.sendPacket(packet, sf::IpAddress("127.0.0.1"), 4242);
+                    }
+                    // If Down
+                    if (event.key.code == sf::Keyboard::Down)
+                    {
+                        sf::Packet packet;
+
+                        packet << lae3::common::CodeCommande::MOVE_DOWN;
+
+                        comThread.sendPacket(packet, sf::IpAddress("127.0.0.1"), 4242);
+                    }
+                    // If Left
+                    if (event.key.code == sf::Keyboard::Left)
+                    {
+                        sf::Packet packet;
+
+                        packet << lae3::common::CodeCommande::MOVE_LEFT;
+
+                        comThread.sendPacket(packet, sf::IpAddress("127.0.0.1"), 4242);
+                    }
+                    // If UP
+                    if (event.key.code == sf::Keyboard::Right)
+                    {
+                        sf::Packet packet;
+
+                        packet << lae3::common::CodeCommande::MOVE_RIGHT;
 
                         comThread.sendPacket(packet, sf::IpAddress("127.0.0.1"), 4242);
                     }
@@ -78,16 +108,14 @@ int main(int argc, char *argv[])
         sf::Packet packet;
         while (comThread.receivePacket(packet))
         {
-            packet >> position.x >> position.y;
+            lae3::common::UpdateData data;
+            packet >> data;
+            world.update(data);
         }
 
         window.clear(sf::Color::Black);
 
-        // Drawn a circle
-        sf::CircleShape circle(10);
-        circle.setFillColor(sf::Color::White);
-        circle.setPosition(position);
-        window.draw(circle);
+        world.render(window);
 
         window.display();
     }

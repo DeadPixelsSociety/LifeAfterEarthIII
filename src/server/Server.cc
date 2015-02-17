@@ -4,12 +4,16 @@
 #include <server/Listener.h>
 #include <server/World.h>
 #include <common/CommunicationThread.h>
+#include <common/Random.h>
 
 int main(int argc, char *argv[])
 {
+    // Initialisation of random generator
+    lae3::common::Random random;
+
     // Gets names of player
 	lae3::server::Listener listener;
-	listener.start();
+	listener.start(random.getSeed());
 
     // Start the communication with UdpSocket
     lae3::common::CommunicationThread comThread(4242);

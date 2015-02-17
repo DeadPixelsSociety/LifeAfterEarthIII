@@ -31,10 +31,13 @@ int main(int argc, char *argv[])
 
     // Register the player
     std::string name(argv[1]);
-    if (!lae3::common::Protocol::registerPlayer(name, "127.0.0.1", 4242, comThread.getPort()))
+    int seed = lae3::common::Protocol::registerPlayer(name, "127.0.0.1", 4242, comThread.getPort());
+    if (-1 == seed)
     {
         return EXIT_FAILURE;
     }
+
+    std::cout << "seed = " << seed << std::endl;
 
 	// Create window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Life After Earth III");

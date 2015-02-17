@@ -38,7 +38,7 @@ std::vector<lae3::server::Player> lae3::server::Listener::getPlayers() const
     return m_players;
 }
 
-void lae3::server::Listener::start()
+void lae3::server::Listener::start(const sf::Int64 seed)
 {
     while(m_continue)
     {
@@ -85,9 +85,9 @@ void lae3::server::Listener::start()
                             // Register the new players
                             m_players.push_back(Player(name, client.getRemoteAddress(), port));
 
-                            // Send acquitement
+                            // Send seed
                             packet.clear();
-                            packet << true;
+                            packet << seed;
                             if (client.send(packet) != sf::Socket::Done)
                             {
                                 std::cerr << "Error during send packet" << std::endl;

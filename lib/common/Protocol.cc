@@ -3,7 +3,7 @@
 
 #include <common/Protocol.h>
 
-/* static */ bool lae3::common::Protocol::registerPlayer(const std::string &name, const std::string &ip, const unsigned short &port, const sf::Uint16 &portUDP)
+/* static */ int lae3::common::Protocol::registerPlayer(const std::string &name, const std::string &ip, const unsigned short &port, const sf::Uint16 &portUDP)
 {
     // Create packet
 	sf::TcpSocket socket;
@@ -17,24 +17,19 @@
 	if (socket.send(packet) != sf::Socket::Done)
     {
         std::cerr << "Error during send packet" << std::endl;
-        return false;
+        return -1;
     }
 
-	// Get acquitement
-	bool ok;
+	// Get seed
+	sf::Int64 seed;
+
 	packet.clear();
 	if (socket.receive(packet) != sf::Socket::Done)
     {
         std::cerr << "Error during receive packet" << std::endl;
-        return false;
+        return -1;
     }
-    packet >> ok;
-
-    if (!ok)
-    {
-        std::cerr << "Player not registered" << std::endl;
-        return false;
-    }
+    packet >> seed;
 
     // Waiting the other player
     do
@@ -43,5 +38,5 @@
     }
     while (sf::Socket::Disconnected != socket.receive(packet));
 
-    return true;
+    return (unsigned int)seed;
 }

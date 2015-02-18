@@ -14,16 +14,21 @@ namespace lae3
         class Map : public ClientObject, public lae3::common::Map
         {
             public:
+                constexpr static int TILE_WIDTH = 4;
+                constexpr static int TILE_HEIGHT = 4;
+
                 Map(const lae3::common::Random &random, sf::Texture *texture = nullptr);
-                ~Map();
+                virtual ~Map();
 
                 virtual void render(sf::RenderWindow &window) const override;
 
             private:
                 sf::Texture *m_texture;
+                sf::VertexArray m_vertex;
+
+                void generateVertexArray();
         };
     }
 }
-
 
 #endif // MAP_H

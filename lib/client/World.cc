@@ -2,8 +2,8 @@
 
 #include <client/World.h>
 
-lae3::client::World::World() :
-    m_position(10.0f, 10.0f)
+lae3::client::World::World(const lae3::common::Random &random) :
+    m_map(random)
 {
     //ctor
 }
@@ -15,15 +15,11 @@ lae3::client::World::~World()
 
 /* virtual */ void lae3::client::World::render(sf::RenderWindow &window) const
 {
-    // Drawn a circle
-    sf::CircleShape circle(10);
-    circle.setFillColor(sf::Color::White);
-    circle.setPosition(m_position);
-    window.draw(circle);
+    // Drawn the map
+    m_map.render(window);
 }
 
 void lae3::client::World::update(lae3::common::UpdateData &data)
 {
-    m_position.x = data.x;
-    m_position.y = data.y;
+    // Nothing
 }

@@ -2,7 +2,9 @@
 #define WORLD_H
 
 #include <common/Protocol.h>
+#include <common/Random.h>
 #include <client/ClientObject.h>
+#include <client/Map.h>
 
 namespace lae3
 {
@@ -11,7 +13,7 @@ namespace lae3
         class World : public ClientObject
         {
             public:
-                explicit World();
+                explicit World(const lae3::common::Random &random);
                 virtual ~World();
 
                 virtual void render(sf::RenderWindow &window) const override;
@@ -20,8 +22,7 @@ namespace lae3
             protected:
 
             private:
-                // For test
-                sf::Vector2f m_position;
+                lae3::client::Map m_map;
         };
     }
 }

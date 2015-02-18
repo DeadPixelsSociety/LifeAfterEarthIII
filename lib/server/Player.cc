@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <server/Player.h>
 
 /* explicit */ lae3::server::Player::Player(std::string name, sf::IpAddress ip, unsigned short port) :

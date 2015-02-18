@@ -7,6 +7,7 @@
 #include <common/CommunicationThread.h>
 #include <common/Protocol.h>
 #include <client/World.h>
+#include <client/Map.h>
 
 void help();
 
@@ -39,14 +40,14 @@ int main(int argc, char *argv[])
 
     std::cout << "seed = " << seed << std::endl;
 
+    // Create random generator
+    lae3::common::Random random(seed);
+
 	// Create window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Life After Earth III");
 
-    // For test only
-    sf::Vector2f position(0,0);
-
     // Create the World
-    lae3::client::World world;
+    lae3::client::World world(random);
 
 	// Main loop
 	while (window.isOpen())
@@ -62,45 +63,7 @@ int main(int argc, char *argv[])
                     window.close();
                     break;
 
-                // Key release
-                case sf::Event::KeyReleased:
-                    // If UP
-                    if (event.key.code == sf::Keyboard::Up)
-                    {
-                        sf::Packet packet;
-
-                        packet << lae3::common::CodeCommande::MOVE_UP;
-
-                        comThread.sendPacket(packet, sf::IpAddress("127.0.0.1"), 4242);
-                    }
-                    // If Down
-                    if (event.key.code == sf::Keyboard::Down)
-                    {
-                        sf::Packet packet;
-
-                        packet << lae3::common::CodeCommande::MOVE_DOWN;
-
-                        comThread.sendPacket(packet, sf::IpAddress("127.0.0.1"), 4242);
-                    }
-                    // If Left
-                    if (event.key.code == sf::Keyboard::Left)
-                    {
-                        sf::Packet packet;
-
-                        packet << lae3::common::CodeCommande::MOVE_LEFT;
-
-                        comThread.sendPacket(packet, sf::IpAddress("127.0.0.1"), 4242);
-                    }
-                    // If UP
-                    if (event.key.code == sf::Keyboard::Right)
-                    {
-                        sf::Packet packet;
-
-                        packet << lae3::common::CodeCommande::MOVE_RIGHT;
-
-                        comThread.sendPacket(packet, sf::IpAddress("127.0.0.1"), 4242);
-                    }
-                    break;
+                /// TODO Manage mouse event
 
                 default:
                     break;

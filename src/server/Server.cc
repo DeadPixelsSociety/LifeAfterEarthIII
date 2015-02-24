@@ -25,9 +25,6 @@ int main(int argc, char *argv[])
     sf::Clock clock;
     clock.restart();
 
-    // For test only
-    sf::Vector2f position(0, 0);
-
 	for (;;)
     {
         sf::Packet packet;

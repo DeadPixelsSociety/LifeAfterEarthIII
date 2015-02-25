@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
             world.update(data);
         }
 
-        window.setView(view);
+        //window.setView(view);
         window.clear(sf::Color::Black);
 
         world.render(window);

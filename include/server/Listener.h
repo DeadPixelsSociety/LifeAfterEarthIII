@@ -25,7 +25,7 @@ namespace lae3
 
                 std::vector<Player> getPlayers() const;
 
-                virtual void start(const sf::Int64 seed);
+                virtual void start(const sf::Int32 seed);
 
             protected:
 

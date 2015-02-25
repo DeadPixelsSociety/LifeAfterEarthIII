@@ -38,7 +38,7 @@ std::vector<lae3::server::Player> lae3::server::Listener::getPlayers() const
     return m_players;
 }
 
-void lae3::server::Listener::start(const sf::Int64 seed)
+void lae3::server::Listener::start(const sf::Int32 seed)
 {
     while(m_continue)
     {

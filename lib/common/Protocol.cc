@@ -21,7 +21,7 @@
     }
 
 	// Get seed
-	sf::Int64 seed;
+	sf::Int32 seed;
 
 	packet.clear();
 	if (socket.receive(packet) != sf::Socket::Done)

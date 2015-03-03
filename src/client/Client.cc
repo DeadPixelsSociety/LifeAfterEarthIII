@@ -14,11 +14,72 @@ void help();
 int main(int argc, char *argv[])
 {
     // Check parameters
-    if (argc != 2)
+  std::string name("unkownplayer");
+  std::string address = "127.0.0.1";
+  int port = 4242;
+  
+  if (argc == 1)
     {
-        help();
-        return EXIT_FAILURE;
+      help();
+      return EXIT_FAILURE;
     }
+  else
+    {
+      std::string arg;
+      //for each args
+      for(int i = 0; i<argc; i++)
+	{
+	  arg = argv[i];
+	  bool error = false;
+	  
+	  //check those who begin by -
+	  if( arg[0] == '-' )
+	    {
+	      if( i+1 < argc )
+		{
+		  // n for the name
+		  if( arg[1] == 'n' )
+		    {
+		      name = argv[i+1];
+		    }
+		  // p for the port
+		  else if( arg[1] == 'p' )
+		    {
+		      port = std::stoi(argv[i+1]);
+		    }
+		  // a for the address
+		  else if( arg[1] == 'a' )
+		    {
+		      address = argv[i+1];
+		    }
+		  // else there is an error
+		  else
+		    {
+		      error = true;
+		    }
+
+		}
+	      //if there isn't '-' in arguments it is an error too
+	      else
+		{
+		  error = true;
+		}
+
+	      //display the error
+	      if(error)
+		{
+		  help();
+		  std::cerr<<"E: bad arguments "<<arg<<" \n";
+		  return EXIT_FAILURE;
+		}
+	    }
+	  
+	  
+	}
+
+    }
+      
+  std::cout<<"\tPlayer: "<<name<<" port: "<<port<<" address: "<<address<<std::endl;//debug
 
     // Create the communication thread
     lae3::common::CommunicationThread comThread;
@@ -31,8 +92,8 @@ int main(int argc, char *argv[])
     }
 
     // Register the player
-    std::string name(argv[1]);
-    int seed = lae3::common::Protocol::registerPlayer(name, "127.0.0.1", 4242, comThread.getPort());
+    
+    int seed = lae3::common::Protocol::registerPlayer(name, address, port, comThread.getPort());
     if (-1 == seed)
     {
         return EXIT_FAILURE;
@@ -97,5 +158,7 @@ int main(int argc, char *argv[])
 void help()
 {
     std::cout << "USAGE:" << std::endl;
-    std::cout << "\tlea3-client PLAYER_NAME" << std::endl;
+    std::cout << "\tlea3-client -n PLAYER_NAME" << std::endl;
+    std::cout << "\tlea3-client -p PORT" << std::endl;
+    std::cout << "\tlea3-client -a ADR" << std::endl;
 }

@@ -6,8 +6,27 @@
 #include <common/CommunicationThread.h>
 #include <common/Random.h>
 
+void help();
+
 int main(int argc, char *argv[])
 {
+  // get the args
+  int port = 4242;
+  
+  if( argc == 3 )
+    {
+      std::string s = argv[1];
+      if( s == "-p" )
+	{
+	  port = atoi(argv[2]);
+	}
+    }
+  else if(argc != 1)
+    {
+      help();
+      return EXIT_FAILURE;
+    }
+  
     // Initialisation of random generator
     lae3::common::Random random;
 
@@ -16,7 +35,7 @@ int main(int argc, char *argv[])
 	listener.start(random.getSeed());
 
     // Start the communication with UdpSocket
-    lae3::common::CommunicationThread comThread(4242);
+    lae3::common::CommunicationThread comThread(port);
     comThread.start();
 
     // Create the world
@@ -59,4 +78,10 @@ int main(int argc, char *argv[])
     }
 
 	return EXIT_SUCCESS;
+}
+
+void help()
+{
+  std::cout<<"USAGE\n";
+  std::cout<<"\t-p PORT\n";
 }

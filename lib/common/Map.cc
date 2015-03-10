@@ -22,14 +22,18 @@ void lae3::common::Map::generate()
             alt = p.get(i,j);
 
             ///TODO Set to define and set value to water
-            if(alt < 200)
-            {
+	    if(alt < 100)
+	      {
+		type = WATER;
+	      }
+	    else if(alt > 100 && alt < 200)
+	      {
                 type = GROUND;
-            }
+	      }
             else
-            {
+	      {
                 type = WALL;
-            }
+	      }
 
             m_tiles[i + j * MAP_WIDTH] = type;
         }

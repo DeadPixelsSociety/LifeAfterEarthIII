@@ -19,6 +19,7 @@ namespace lae3
                 {
                     WALL,
                     GROUND,
+		    WATER
                 };
 
                 Map(const lae3::common::Random &random);

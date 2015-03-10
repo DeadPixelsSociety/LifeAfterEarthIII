@@ -60,7 +60,14 @@ void lae3::client::Map::generateVertexArray()
                 quad[2].color = sf::Color::Black;
                 quad[3].color = sf::Color::Black;
                 break;
-
+		
+	    case lae3::common::Map::WATER:
+	      quad[0].color = sf::Color::Blue;
+	      quad[1].color = sf::Color::Blue;
+	      quad[2].color = sf::Color::Blue;
+	      quad[3].color = sf::Color::Blue;
+	      break;
+	      
             default:
                 std::cerr << "Tile type invalid" << std::endl;
                 assert(false);

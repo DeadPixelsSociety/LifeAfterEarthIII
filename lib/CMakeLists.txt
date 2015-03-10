@@ -9,6 +9,7 @@ add_library(lae3common SHARED
 target_link_libraries(lae3common
   ${SFML2_LIBRARIES}
   sfml-network
+  ${Boost_LIBRARIES}
 )
 
 set_target_properties(lae3common

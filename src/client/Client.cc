@@ -6,6 +6,7 @@
 
 #include <common/CommunicationThread.h>
 #include <common/Protocol.h>
+#include <common/Map.h>
 #include <client/World.h>
 #include <client/View.h>
 #include <client/Resource.h>
@@ -117,8 +118,7 @@ int main(int argc, char *argv[])
     lae3::client::World world(random, resources);
 
     // Setting view
-    sf::View view({ 128.0f * lae3::client::Map::MAP_WIDTH, 128.0f * lae3::client::Map::MAP_HEIGHT }, { lae3::client::View::VIEW_WIDTH, lae3::client::View::VIEW_HEIGHT });
-    view.setViewport(lae3::client::View::computeViewport(800, 600));
+    sf::View view({ 10.0f, 10.0f }, sf::Vector2f(300.0f, 200.0f));
 
 	// Main loop
 	while (window.isOpen())
@@ -150,8 +150,9 @@ int main(int argc, char *argv[])
             world.update(data);
         }
 
-        //window.setView(view);
         window.clear(sf::Color::Black);
+
+        window.setView(view);
 
         world.render(window);
 

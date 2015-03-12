@@ -2,8 +2,8 @@
 
 #include <client/World.h>
 
-lae3::client::World::World(const lae3::common::Random &random) :
-    m_map(random)
+lae3::client::World::World(const lae3::common::Random &random, ResourceManager &resources) :
+    m_map(random, resources)
 {
     //ctor
 }

@@ -1,5 +1,9 @@
 # Client application
 # List of sources
+include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/client)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/client/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/client/config.h @ONLY)
+
 file(GLOB CLIENT_SOURCES "client/*.cc")
 
 add_executable(lae3-client

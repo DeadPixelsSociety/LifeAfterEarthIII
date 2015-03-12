@@ -13,7 +13,7 @@ namespace lae3
         class World : public ClientObject
         {
             public:
-                explicit World(const lae3::common::Random &random);
+                explicit World(const lae3::common::Random &random, ResourceManager &resources);
                 virtual ~World();
 
                 virtual void render(sf::RenderWindow &window) const override;

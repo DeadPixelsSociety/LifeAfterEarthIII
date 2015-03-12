@@ -6,6 +6,7 @@
 #include <common/Random.h>
 #include <common/Map.h>
 #include <client/ClientObject.h>
+#include <client/Resource.h>
 
 namespace lae3
 {
@@ -17,7 +18,7 @@ namespace lae3
                 constexpr static int TILE_WIDTH = 12;
                 constexpr static int TILE_HEIGHT = 12;
 
-                Map(const lae3::common::Random &random, sf::Texture *texture = nullptr);
+                Map(const lae3::common::Random &random, ResourceManager &resources);
                 virtual ~Map();
 
                 virtual void render(sf::RenderWindow &window) const override;

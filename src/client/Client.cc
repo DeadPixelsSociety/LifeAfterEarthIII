@@ -8,6 +8,9 @@
 #include <common/Protocol.h>
 #include <client/World.h>
 #include <client/View.h>
+#include <client/Resource.h>
+
+#include "config.h"
 
 void help();
 
@@ -17,7 +20,7 @@ int main(int argc, char *argv[])
   std::string name("unkownplayer");
   std::string address = "127.0.0.1";
   int port = 4242;
-  
+
   if (argc == 1)
     {
       help();
@@ -31,7 +34,7 @@ int main(int argc, char *argv[])
 	{
 	  arg = argv[i];
 	  bool error = false;
-	  
+
 	  //check those who begin by -
 	  if( arg[0] == '-' )
 	    {
@@ -73,12 +76,12 @@ int main(int argc, char *argv[])
 		  return EXIT_FAILURE;
 		}
 	    }
-	  
-	  
+
+
 	}
 
     }
-      
+
   std::cout<<"\tPlayer: "<<name<<" port: "<<port<<" address: "<<address<<std::endl;//debug
 
     // Create the communication thread
@@ -92,7 +95,6 @@ int main(int argc, char *argv[])
     }
 
     // Register the player
-    
     int seed = lae3::common::Protocol::registerPlayer(name, address, port, comThread.getPort());
     if (-1 == seed)
     {
@@ -101,6 +103,10 @@ int main(int argc, char *argv[])
 
     std::cout << "seed = " << seed << std::endl;
 
+    // Create the resources manager
+    lae3::client::ResourceManager resources;
+    resources.addSearchDir(GAME_DATADIR);
+
     // Create random generator
     lae3::common::Random random(seed);
 
@@ -108,7 +114,7 @@ int main(int argc, char *argv[])
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Life After Earth III");
 
     // Create the World
-    lae3::client::World world(random);
+    lae3::client::World world(random, resources);
 
     // Setting view
     sf::View view({ 128.0f * lae3::client::Map::MAP_WIDTH, 128.0f * lae3::client::Map::MAP_HEIGHT }, { lae3::client::View::VIEW_WIDTH, lae3::client::View::VIEW_HEIGHT });

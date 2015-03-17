@@ -29,21 +29,27 @@ void lae3::common::Perlin2D::init()
 
 void lae3::common::Perlin2D::initValueCenterMountain()
 {
-    int a = Map::MAP_WIDTH / 10;
-    for(int i=0; i < Map::MAP_WIDTH; i += OFFSET)
+  int a = Map::MAP_WIDTH / 10;
+  
+  for(int i=0; i < Map::MAP_WIDTH; i += OFFSET)
     {
-        for(int j=0; j < Map::MAP_HEIGHT; j += OFFSET)
+      for(int j=0; j < Map::MAP_HEIGHT; j += OFFSET)
         {
-            if(i > a && i < Map::MAP_WIDTH - a && j > a && j < Map::MAP_HEIGHT - a)
-            {
-                m_tab[i + j * Map::MAP_WIDTH] =  Perlin2D::random(GROUND-40,256);
-            }
-            else
-            {
-                m_tab[i + j * Map::MAP_WIDTH] = Perlin2D::random(50,100);
-            }
+	  if( i > 2*a && i < Map::MAP_HEIGHT - 2*a &&  j > 2*a && j < Map::MAP_WIDTH - 2*a )
+	    {
+	      m_tab[i + j * Map::MAP_WIDTH] =  Perlin2D::random(150,256);
+	    }
+	  else if( i > a && i < Map::MAP_HEIGHT - a &&  j > a && j < Map::MAP_WIDTH - a )
+	    {
+	      m_tab[i + j * Map::MAP_WIDTH] =  Perlin2D::random(150,200);
+	    }
+	  else
+	    {
+	      m_tab[i + j * Map::MAP_WIDTH] =  Perlin2D::random(90,210);
+	    }
         }
     }
+  
 }
 
 void lae3::common::Perlin2D::initValueRandom()

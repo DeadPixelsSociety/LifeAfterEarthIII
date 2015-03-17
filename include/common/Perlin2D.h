@@ -14,7 +14,7 @@ namespace lae3
             public:
                 enum AltThreshold : int
                 {
-                    DEEP_SEA = 10,
+                    DEEP_SEA = 0,
                     SEA = 50,
                     SAND = 70,
                     GROUND = 200,

@@ -134,9 +134,9 @@ int main(int argc, char *argv[])
                     window.close();
                     break;
 
-                case sf::Event::MouseMoved:
+                case sf::Event::Resized:
                     // Get new position of mouse
-                    //view.update(event.mouseMove.x, event.mouseMove.y);
+                    view.setSize(event.size.width, event.size.height);
                     break;
 
                 default:

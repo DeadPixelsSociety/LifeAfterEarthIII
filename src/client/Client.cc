@@ -136,6 +136,7 @@ int main(int argc, char *argv[])
 
                 case sf::Event::MouseMoved:
                     // Get new position of mouse
+                    //view.update(event.mouseMove.x, event.mouseMove.y);
                     break;
 
                 default:
@@ -151,6 +152,7 @@ int main(int argc, char *argv[])
             packet >> data;
             world.update(data);
         }
+        view.updateMoveState(sf::Mouse::getPosition(window));
 
         window.setView(view);
 

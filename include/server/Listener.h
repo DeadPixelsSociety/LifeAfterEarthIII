@@ -20,7 +20,7 @@ namespace lae3
         class Listener : public ServerObject
         {
             public:
-                explicit Listener();
+                explicit Listener(unsigned short port = 4242);
                 virtual ~Listener();
 
                 std::vector<Player> getPlayers() const;

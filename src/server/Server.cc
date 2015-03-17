@@ -27,11 +27,12 @@ int main(int argc, char *argv[])
       return EXIT_FAILURE;
     }
   
+  std::cout<<"PORT: "<<port<<"\n";
     // Initialisation of random generator
     lae3::common::Random random;
 
     // Gets names of player
-	lae3::server::Listener listener;
+    lae3::server::Listener listener(port);
 	listener.start(random.getSeed());
 
     // Start the communication with UdpSocket

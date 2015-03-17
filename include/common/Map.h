@@ -14,6 +14,9 @@ namespace lae3
             public:
                 constexpr static int MAP_WIDTH = 50;
                 constexpr static int MAP_HEIGHT = 50;
+		constexpr static int WATER_LEVEL = 120;
+		constexpr static int GROUND_LEVEL = 150;
+		constexpr static int MOUNTAIN_LEVEL = 210;
 
                 enum TileType
                 {

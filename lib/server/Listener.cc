@@ -3,13 +3,13 @@
 
 #include <server/Listener.h>
 
-/* explicit */ lae3::server::Listener::Listener() :
+/* explicit */ lae3::server::Listener::Listener(unsigned short port) :
     m_MAX_CLIENTS(2)
     , m_continue(true)
     , m_pListener(new sf::TcpListener())
     , m_pSocketSelector(new sf::SocketSelector())
 {
-    m_pListener->listen(4242);
+    m_pListener->listen(port);
 
     m_pSocketSelector->add(*m_pListener);
 }

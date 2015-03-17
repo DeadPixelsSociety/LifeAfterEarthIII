@@ -55,6 +55,24 @@ void lae3::client::View::updateMoveState(sf::Vector2i mousePosition)
         newCenter.y += MOVE_STEP;
     }
 
+    // Check if the new center is right
+    if(newCenter.x < 0)
+    {
+        newCenter.x = 0;
+    }
+    else if (newCenter.x > lae3::client::Map::MAP_WIDTH * lae3::client::Map::TILE_WIDTH)
+    {
+        newCenter.x = lae3::client::Map::MAP_WIDTH * lae3::client::Map::TILE_WIDTH;
+    }
+    if(newCenter.y < 0)
+    {
+        newCenter.y = 0;
+    }
+    else if (newCenter.y > lae3::client::Map::MAP_HEIGHT * lae3::client::Map::TILE_HEIGHT)
+    {
+        newCenter.y = lae3::client::Map::MAP_HEIGHT * lae3::client::Map::TILE_HEIGHT;
+    }
+
     // Update the new center
     setCenter(newCenter);
 }

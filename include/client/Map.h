@@ -15,8 +15,8 @@ namespace lae3
         class Map : public ClientObject, public lae3::common::Map
         {
             public:
-                constexpr static int TILE_WIDTH = 12;
-                constexpr static int TILE_HEIGHT = 12;
+                constexpr static int TILE_WIDTH = 64;
+                constexpr static int TILE_HEIGHT = 64;
 
                 Map(const lae3::common::Random &random, ResourceManager &resources);
                 virtual ~Map();

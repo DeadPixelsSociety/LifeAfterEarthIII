@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
     lae3::client::World world(random, resources);
 
     // Setting view
-    sf::View view({ 10.0f, 10.0f }, sf::Vector2f(300.0f, 200.0f));
+    sf::View view({ lae3::client::Map::MAP_WIDTH * lae3::client::Map::TILE_WIDTH / 2.0f, lae3::client::Map::MAP_HEIGHT * lae3::client::Map::TILE_HEIGHT / 2.0f }, { 7.0f * lae3::client::Map::TILE_WIDTH, 7.0f * lae3::client::Map::TILE_HEIGHT });
 
 	// Main loop
 	while (window.isOpen())
@@ -150,9 +150,9 @@ int main(int argc, char *argv[])
             world.update(data);
         }
 
-        window.clear(sf::Color::Black);
-
         window.setView(view);
+
+        window.clear(sf::Color::Black);
 
         world.render(window);
 

@@ -1,41 +1,23 @@
 #include <client/View.h>
+#include <client/Map.h>
 
-lae3::client::View::View()
+/* explicit */ lae3::client::View::View(sf::Vector2u sizeWindow) :
+    m_sizeWindow(sizeWindow)
 {
-    //ctor
+    // Set center
+    sf::Vector2f cameraPosition;
+    cameraPosition.x = lae3::client::Map::MAP_WIDTH * lae3::client::Map::TILE_WIDTH / 2.0f;
+    cameraPosition.y = lae3::client::Map::MAP_HEIGHT * lae3::client::Map::TILE_HEIGHT / 2.0f;
+    setCenter(cameraPosition);
+
+    // Set view size
+    sf::Vector2f sizeView;
+    sizeView.x = sizeWindow.x;
+    sizeView.y = sizeWindow.y;
+    setSize(sizeView);
 }
 
-lae3::client::View::~View()
+/* virtual */ lae3::client::View::~View()
 {
     //dtor
-}
-
-
-/* static */ sf::FloatRect lae3::client::View::computeViewport(unsigned width, unsigned height)
-{
-    float w = static_cast<float>(width);
-    float h = static_cast<float>(height);
-
-    float r = w / h;
-
-    sf::FloatRect vp;
-
-    if (width < height)
-    {
-        vp.left = 0.0f;
-        vp.width = 1.0;
-
-        vp.top = (1 - r) / 2;
-        vp.height = r;
-    }
-    else
-    {
-        vp.top = 0.0f;
-        vp.height = 1.0f;
-
-        vp.left = (1 - 1 / r) / 2;
-        vp.width = 1 / r;
-    }
-
-    return vp;
 }

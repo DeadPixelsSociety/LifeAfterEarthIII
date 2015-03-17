@@ -8,8 +8,8 @@
 #include <common/Protocol.h>
 #include <common/Map.h>
 #include <client/World.h>
-#include <client/View.h>
 #include <client/Resource.h>
+#include <client/View.h>
 
 #include "config.h"
 
@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
     lae3::client::World world(random, resources);
 
     // Setting view
-    sf::View view({ lae3::client::Map::MAP_WIDTH * lae3::client::Map::TILE_WIDTH / 2.0f, lae3::client::Map::MAP_HEIGHT * lae3::client::Map::TILE_HEIGHT / 2.0f }, { 7.0f * lae3::client::Map::TILE_WIDTH, 7.0f * lae3::client::Map::TILE_HEIGHT });
+    lae3::client::View view(window.getSize());
 
 	// Main loop
 	while (window.isOpen())
@@ -134,7 +134,9 @@ int main(int argc, char *argv[])
                     window.close();
                     break;
 
-                /// TODO Manage mouse event
+                case sf::Event::MouseMoved:
+                    // Get new position of mouse
+                    break;
 
                 default:
                     break;

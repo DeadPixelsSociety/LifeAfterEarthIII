@@ -7,20 +7,16 @@ namespace lae3
 {
     namespace client
     {
-        class View
+        class View : public sf::View
         {
             public:
-                constexpr static float VIEW_WIDTH = 500.0f;
-                constexpr static float VIEW_HEIGHT = 500.0f;
-
-                View();
+                explicit View(sf::Vector2u sizeWindow);
                 virtual ~View();
-
-                static sf::FloatRect computeViewport(unsigned width, unsigned height);
 
             protected:
 
             private:
+                sf::Vector2u m_sizeWindow;
         };
     }
 }

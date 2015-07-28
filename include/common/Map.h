@@ -20,13 +20,17 @@ namespace lae3
 
                 enum TileType
                 {
-                    WALL,
-                    GROUND,
-		    WATER
+		  GROUND=0,
+		  WALL=1,
+		  WATER=2
                 };
 
                 Map(const lae3::common::Random &random);
+		std::vector<std::pair<int, int>> neighbors(int i, int j);
 
+		int get(int i, int j);
+	        unsigned distance(int i1, int j1, int i2, int j2);
+		
             protected:
                 std::vector<TileType> m_tiles;
                 lae3::common::Random m_random;
@@ -34,6 +38,13 @@ namespace lae3
                 void generate();
                 void generateWall(float p);
                 void generateWall();
+
+		bool exists(int i, int j)
+		{
+		  return (i>=0 && i<MAP_HEIGHT && j>=00 && j<MAP_WIDTH);
+		}
+
+		
 
             private:
         };

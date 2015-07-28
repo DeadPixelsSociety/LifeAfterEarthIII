@@ -1,0 +1,9 @@
+#EMACS
+*~
+\#*\#
+
+#CPP
+*.o
+
+#GIT
+/build
